@@ -18,8 +18,17 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(mapRef.current);
 
+            var icon = L.icon({
+                iconUrl: 'circle.png',
+                shadowUrl: 'circle-shadow.png',
+                iconSize: [25, 25],
+                shadowSize: [30, 30],
+                iconAnchor: [12, 12],
+                shadowAnchor: [14, 14]
+            })
+
             // Initialize the marker
-            markerRef.current = L.marker([49.0384, 31.4513], { draggable: true }).addTo(mapRef.current);
+            markerRef.current = L.marker([49.0384, 31.4513], { draggable: true, icon: icon }).addTo(mapRef.current);
             markerRef.current.on('dragend', function(event) {
                 const position = event.target.getLatLng();
                 onLocationSelect({ X: position.lat, Y: position.lng });
@@ -39,6 +48,7 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
         };
     }, []);
 
+    
     const handleConfirm = () => {
         if (markerRef.current) {
             const { lat, lng } = markerRef.current.getLatLng();
