@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import Map from '../components/map';
+// import Map from '../components/map';
 import Card from '@/components/card';
 import styles from './page.module.css';
 import { db } from '../firebaseClient';

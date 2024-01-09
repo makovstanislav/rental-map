@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { db, storage } from '../../firebaseClient'; 
 import { ref as dbRef, push } from "firebase/database";
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import LocationPickerMap from '../../components/locationPickerMap'
+// import LocationPickerMap from '../../components/locationPickerMap'
 
 export default function AddRental() {
     
