@@ -80,7 +80,7 @@ export default function AddRental() {
                 <div>
                     <button type="button" onClick={() => setShowMap(true)}>Find on the Map</button>
                 </div>
-                {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />}
+                {/* {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />} */}
                 <button type="submit" disabled={uploading}>
                     {uploading ? 'Uploading...' : 'Submit'}
                 </button>

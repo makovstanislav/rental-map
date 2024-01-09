@@ -30,9 +30,9 @@ export default function Home() {
             <button className={styles.addButton} href='/add-rental'>Add a New Rental Object</button>
         </header>
         <main className={styles.main}>
-            <div className={styles.map}>
+            {/* <div className={styles.map}>
                 <Map cards={cards} onMarkerClick={handleMarkerClick} />
-            </div>
+            </div> */}
             <div className={styles.feed}>
                 {cards && Object.keys(cards)
                     .filter(key => !selectedCard || key === selectedCard)
