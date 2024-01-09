@@ -32,7 +32,7 @@
   display: flex;
   justify-content: space-between; 
   align-items: stretch; 
-  height: calc(100vh - 60px); /* Adjust based on the header height */
+  height: calc(100vh - 60px); 
 }
 
 .map {
@@ -98,7 +98,6 @@
   color: gray;
 }
 
-/* Tablet and Smaller Desktop */
 @media (max-width: 768px) {
   .main {
     flex-direction: column;

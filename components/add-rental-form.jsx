@@ -14,10 +14,19 @@ export default function AddRentalForm() {
     const [location, setLocation] = useState({ X: 50.0384, Y: 31.4513 });
     const [showMap, setShowMap] = useState(false);
     const [locationName, setLocationName] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Check if any field is empty
+        if (!title || !price || !imageFile || !locationName) {
+            setErrorMessage('There should not be empty fields');
+            return;
+        }
+
         setUploading(true);
+        setErrorMessage('');
 
         // Upload the image to Firebase Storage
         const imageRef = storageRef(storage, 'rental_images/' + imageFile.name);
@@ -56,6 +65,7 @@ export default function AddRentalForm() {
     return (
         <div className={styles.addRentalContainer}>
             <h2 className={styles.addRentalTitle}>Add a New Rental Object</h2>
+            {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
             <form onSubmit={handleSubmit} className={styles.addRentalForm}>
                 <div className={styles.addRentalFormGroup}>
                     <label className={styles.addRentalLabel}>Image</label>

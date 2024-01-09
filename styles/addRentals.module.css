@@ -1,46 +1,40 @@
-/* AddRentalForm Container */
 .addRentalContainer {
-    background-color: white; /* Adjust as needed */
+    background-color: white; 
     padding: 16px;
     border-radius: 8px;
-    max-width: 600px; /* Adjust width as needed */
-    margin: 20px auto; /* Center the form on the page */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
+    max-width: 600px; 
+    margin: 20px auto; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   }
   
-  /* Form Title */
   .addRentalTitle {
-    color: #003366; /* Dark blue color to match header */
+    color: #003366; 
     font-size: 24px;
     text-align: center;
     margin-bottom: 20px;
   }
   
-  /* Form Group */
   .addRentalFormGroup {
     margin-bottom: 15px;
   }
   
-  /* Labels */
   .addRentalLabel {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #003366; /* Dark blue color to match header */
+    color: #003366; 
   }
   
-  /* Inputs */
   .addRentalInput {
     width: 100%;
     padding: 8px;
     border-radius: 4px;
-    border: 1px solid #ddd; /* Light gray border */
+    border: 1px solid #ddd; 
     font-size: 16px;
   }
   
-  /* Submit Button */
   .addRentalSubmitButton {
-    background-color: #007bff; /* Bootstrap primary color for reference */
+    background-color: #007bff; 
     color: white;
     border: none;
     padding: 10px 15px;
@@ -53,12 +47,11 @@
   }
   
   .addRentalSubmitButton:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
+    background-color: #0056b3;
   }
   
-  /* Map Button */
   .addRentalMapButton {
-    background-color: #28a745; /* Bootstrap success color for reference */
+    background-color: #28a745; 
     color: white;
     border: none;
     padding: 10px 15px;
@@ -72,10 +65,14 @@
   }
   
   .addRentalMapButton:hover {
-    background-color: #218838; /* Darker shade for hover effect */
+    background-color: #218838; 
+  }
+
+  .errorMessage {
+    color: palevioletred;
+    margin-bottom: 1rem;
   }
   
-  /* Responsive Design */
   @media (max-width: 768px) {
     .addRentalContainer {
       width: 90%;
