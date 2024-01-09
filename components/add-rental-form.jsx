@@ -4,6 +4,7 @@ import { db, storage } from '../firebaseClient'
 import { ref as dbRef, push } from "firebase/database";
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import LocationPickerMap from './maps/locationPickerMap'
+import styles from '../styles/addRentals.module.css'
 
 export default function AddRentalForm() {
     const [title, setTitle] = useState(null);
@@ -12,6 +13,7 @@ export default function AddRentalForm() {
     const [uploading, setUploading] = useState(false);
     const [location, setLocation] = useState({ X: 50.0384, Y: 31.4513 });
     const [showMap, setShowMap] = useState(false);
+    const [locationName, setLocationName] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,7 +27,12 @@ export default function AddRentalForm() {
 
             // Submit all data to Firebase Realtime Database
             const newRentalRef = dbRef(db, 'cards/');
-            const newRental = { image: downloadURL, title, price, location };
+            const newRental = {
+                image: downloadURL, 
+                title, 
+                price, 
+                location: { ...location, full: locationName } // Include full address
+            };
             await push(newRentalRef, newRental);
             alert('Rental object added successfully');
         } catch (error) {
@@ -43,47 +50,61 @@ export default function AddRentalForm() {
     const handleLocationSelect = (selectedLocation) => {
         setLocation(selectedLocation);
         setShowMap(false);
-        console.log(selectedLocation)
+        setLocationName(`Lat: ${selectedLocation.X}, Lng: ${selectedLocation.Y}`);
     };
 
     return (
-        <div>
-            <h2>Add a New Rental Object</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Image</label>
+        <div className={styles.addRentalContainer}>
+            <h2 className={styles.addRentalTitle}>Add a New Rental Object</h2>
+            <form onSubmit={handleSubmit} className={styles.addRentalForm}>
+                <div className={styles.addRentalFormGroup}>
+                    <label className={styles.addRentalLabel}>Image</label>
                     <input 
                         type="file" 
-                        onChange={(e) => setImageFile(e.target.files[0])} 
+                        onChange={(e) => setImageFile(e.target.files[0])}
+                        className={styles.addRentalInput}
                     />
                 </div>
-                <div>
-                    <label>Title</label>
+                <div className={styles.addRentalFormGroup}>
+                    <label className={styles.addRentalLabel}>Title</label>
                     <input 
                         type="text" 
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        className={styles.addRentalInput}
                     />
                 </div>
-                <div>
-                    <label>Price</label>
+                <div className={styles.addRentalFormGroup}>
+                    <label className={styles.addRentalLabel}>Price</label>
                     <input 
                         type="number" 
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        className={styles.addRentalInput}
                     />
                 </div>
-                <button type="submit" disabled={uploading}>
-                    {uploading ? 'Uploading...' : 'Submit'}
-                </button>
-                <div>
-                    <button type="button" onClick={() => setShowMap(true)}>Find on the Map</button>
+                <div className={styles.addRentalFormGroup}>
+                    <label className={styles.addRentalLabel}>Location</label>
+                    <input 
+                        type="text" 
+                        value={locationName}
+                        readOnly
+                        className={styles.addRentalInput}
+                        placeholder='...pick a location on the map below'
+                    />
                 </div>
-                {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />}
-                <button type="submit" disabled={uploading}>
+                <div className={styles.addRentalFormGroup}>
+                    <button type="button" onClick={() => setShowMap(true)} className={styles.addRentalMapButton}>
+                        Find on the Map  🌍
+                    </button>
+                </div>
+                <button type="submit" disabled={uploading} className={styles.addRentalSubmitButton}>
                     {uploading ? 'Uploading...' : 'Submit'}
                 </button>
+                
+                {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />}
             </form>
         </div>
     );
 }
+

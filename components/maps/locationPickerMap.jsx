@@ -7,6 +7,7 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
+    
 
     useEffect(() => {
         if (mapContainerRef.current && !mapRef.current) {

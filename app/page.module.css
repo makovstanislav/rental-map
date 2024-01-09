@@ -1,5 +1,5 @@
 .header {
-  background-color: #003366; /* Dark blue color */
+  background-color: #003366; 
   padding: 16px;
   display: flex;
   justify-content: space-between;
@@ -12,8 +12,9 @@
   font-size: 24px;
 }
 
+
 .addButton {
-  background-color: #007bff; /* Bootstrap primary color for reference */
+  background-color: #007bff; 
   color: white;
   border: none;
   padding: 8px 16px;
@@ -24,23 +25,34 @@
 }
 
 .addButton:hover {
-  background-color: #0056b3; /* Darker shade for hover effect */
+  background-color: #0056b3; 
 }
 
 .main {
   display: flex;
-  align-items: stretch; /* This ensures that both children (map and feed) stretch to fill the parent container's height */
+  justify-content: space-between; 
+  align-items: stretch; 
+  height: calc(100vh - 60px); /* Adjust based on the header height */
 }
 
 .map {
-  flex-grow: 2; /* This makes the map grow to fill extra space. The number is a proportion, so '2' means it will take up twice as much space as the feed if you set the feed's flex-grow to '1'. */
-  /* You can also set a fixed width here if you prefer */
+  flex-grow: 2;
+  justify-content: center;
+  align-items: center; 
+  background-color: rgba(226,230,230,255);
+  width: 100%;
+  height: 100%;
 }
 
 .feed {
-  flex-grow: 1; /* This allows the feed to grow but at a smaller proportion than the map */
-  /* Set additional styles for the feed here, such as padding, background-color, etc. */
-  background-color: white;
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: #f2f4f5;
+  padding: 10px; 
+  margin-left: 10px; 
+  height: 100%; 
+  max-width: 400px;
+  justify-content: center;
 }
 
 .card {
@@ -49,27 +61,28 @@
   max-width: 300px;
   border-radius: 8px;
   border: 1px solid lightgray;
-  overflow: hidden; /* This ensures that anything extending beyond the border-radius is clipped */
+  overflow: hidden; 
+  margin: 0 auto 2rem;
 }
 
 .imageContainer {
   position: relative;
-  width: 100%; /* Fixed width */
-  height: 250px; /* Fixed height */
-  overflow: hidden; /* Ensures nothing goes outside the container */
+  width: 100%; 
+  height: 250px; 
+  overflow: hidden; 
 }
 
 .image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Covers the container, keeping aspect ratio */
+  object-fit: cover; 
 }
 
 .priceTag {
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.5); 
   color: white;
   padding: 5px;
   font-size: 16px;
@@ -77,8 +90,8 @@
 }
 
 .cardTitle, .cardSubtitle {
-  margin: 8px; /* Add margin around the text */
-  font-size: 16px; /* Adjust font size as necessary */
+  margin: 8px; 
+  font-size: 16px; 
 }
 
 .cardSubtitle {
@@ -86,27 +99,13 @@
 }
 
 /* Tablet and Smaller Desktop */
-@media (min-width: 701px) and (max-width: 1120px) {
-  .grid {
-    grid-template-columns: repeat(2, 50%);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .vercelLogo {
-    filter: invert(1);
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
   }
 
-  .logo {
-    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
+  .feed {
+    height: auto;
+    margin-left: 0;
   }
 }

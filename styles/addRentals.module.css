@@ -1,0 +1,85 @@
+/* AddRentalForm Container */
+.addRentalContainer {
+    background-color: white; /* Adjust as needed */
+    padding: 16px;
+    border-radius: 8px;
+    max-width: 600px; /* Adjust width as needed */
+    margin: 20px auto; /* Center the form on the page */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
+  }
+  
+  /* Form Title */
+  .addRentalTitle {
+    color: #003366; /* Dark blue color to match header */
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Group */
+  .addRentalFormGroup {
+    margin-bottom: 15px;
+  }
+  
+  /* Labels */
+  .addRentalLabel {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #003366; /* Dark blue color to match header */
+  }
+  
+  /* Inputs */
+  .addRentalInput {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd; /* Light gray border */
+    font-size: 16px;
+  }
+  
+  /* Submit Button */
+  .addRentalSubmitButton {
+    background-color: #007bff; /* Bootstrap primary color for reference */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+  }
+  
+  .addRentalSubmitButton:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+  }
+  
+  /* Map Button */
+  .addRentalMapButton {
+    background-color: #28a745; /* Bootstrap success color for reference */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .addRentalMapButton:hover {
+    background-color: #218838; /* Darker shade for hover effect */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .addRentalContainer {
+      width: 90%;
+      margin: 20px auto;
+    }
+  }
+  

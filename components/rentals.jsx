@@ -5,6 +5,7 @@ import Card from '@/components/card';
 import { db } from '../firebaseClient';
 import { ref, onValue } from "firebase/database";
 import styles from '../app/page.module.css';
+import Link from 'next/link';
 
 export default function Rentals() {
 
@@ -24,12 +25,13 @@ export default function Rentals() {
         setSelectedCard(cardKey);
     }
 
-
     return ( 
         <>
             <header className={styles.header}>
                 <h1 className={styles.headerTitle}>Rental Listings</h1>
-                <button className={styles.addButton} href='/add-rental'>Add a New Rental Object</button>
+                <Link href='/add-rental'>
+                    <button className={styles.addButton}>Add a New Rental Object</button>
+                </Link>
             </header>
             <main className={styles.main}>
                 <div className={styles.map}>
