@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { db, storage } from '../../firebaseClient'; 
 import { ref as dbRef, push } from "firebase/database";
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-// import LocationPickerMap from '../../components/locationPickerMap'
+import LocationPickerMap from '../../components/locationPickerMap'
 
 export default function AddRental() {
     
@@ -80,7 +80,7 @@ export default function AddRental() {
                 <div>
                     <button type="button" onClick={() => setShowMap(true)}>Find on the Map</button>
                 </div>
-                {/* {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />} */}
+                {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />}
                 <button type="submit" disabled={uploading}>
                     {uploading ? 'Uploading...' : 'Submit'}
                 </button>
