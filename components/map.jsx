@@ -34,7 +34,7 @@ export default function Map({ cards, onMarkerClick }) {
                     shadowAnchor: [14, 14]
                 });
             }
-        }
+        
         
 
         // Add markers for each card
@@ -66,6 +66,7 @@ export default function Map({ cards, onMarkerClick }) {
                 window.myMap = undefined;
             }
         };
+    }
     }, [cards]);
 
     return (
