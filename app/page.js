@@ -24,6 +24,11 @@ export default function Home() {
     }
 
     return (
+      <>
+        <header className={styles.header}>
+            <h1 className={styles.headerTitle}>Rental Listings</h1>
+            <button className={styles.addButton} href='/add-rental'>Add a New Rental Object</button>
+        </header>
         <main className={styles.main}>
             <div className={styles.map}>
                 <Map cards={cards} onMarkerClick={handleMarkerClick} />
@@ -46,6 +51,7 @@ export default function Home() {
                 }
             </div>
         </main>
+      </>    
     )
 }
 

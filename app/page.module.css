@@ -1,3 +1,32 @@
+.header {
+  background-color: #003366; /* Dark blue color */
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 24px;
+}
+
+.addButton {
+  background-color: #007bff; /* Bootstrap primary color for reference */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}
+
 .main {
   display: flex;
   align-items: stretch; /* This ensures that both children (map and feed) stretch to fill the parent container's height */
