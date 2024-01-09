@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-export default function Map() {
+export default function Map({ cards, onMarkerClick }) {
     useEffect(() => {
         // Initialize the map
         if (!window.myMap) {
@@ -15,30 +15,44 @@ export default function Map() {
 
             // Default icon
             var defaultIcon = L.icon({
-                iconUrl: 'circle.png', 
-                shadowUrl: 'circle-shadow.png', 
+                iconUrl: 'circle.png',
+                shadowUrl: 'circle-shadow.png',
                 iconSize: [25, 25],
-                shadowSize: [30, 30], 
-                iconAnchor: [12, 12], 
-                shadowAnchor: [14, 14] 
+                shadowSize: [30, 30],
+                iconAnchor: [12, 12],
+                shadowAnchor: [14, 14]
             });
-            
+
             // Active icon for clicked state
             var activeIcon = L.icon({
-                iconUrl: 'circle-active.png', 
-                shadowUrl: 'circle-shadow.png', 
+                iconUrl: 'circle-active.png',
+                shadowUrl: 'circle-shadow.png',
                 iconSize: [25, 25],
-                shadowSize: [30, 30], 
-                iconAnchor: [12, 12], 
-                shadowAnchor: [14, 14] 
+                shadowSize: [30, 30],
+                iconAnchor: [12, 12],
+                shadowAnchor: [14, 14]
             });
+        }
 
-            // Create a marker and add it to the map
-            var marker = L.marker([49.0384, 31.4513], { icon: defaultIcon }).addTo(window.myMap);
+        // Add markers for each card
+        if (cards) {
+            Object.keys(cards).forEach(key => {
+                const { location } = cards[key];
+                const lat = location.X;
+                const lng = location.Y;
 
-            // Add click event to the marker
-            marker.on('click', function() {
-                marker.setIcon(activeIcon);
+                var marker = L.marker([lat, lng], { icon: defaultIcon }).addTo(window.myMap);
+
+                marker.on('click', function() {
+                    onMarkerClick(key);
+                    marker.setIcon(activeIcon);
+                    // Reset other markers to defaultIcon
+                    window.myMap.eachLayer(function (layer) {
+                        if (layer instanceof L.Marker && layer !== marker) {
+                            layer.setIcon(defaultIcon);
+                        }
+                    });
+                });
             });
         }
 
@@ -49,7 +63,7 @@ export default function Map() {
                 window.myMap = undefined;
             }
         };
-    }, []);
+    }, [cards]);
 
     return (
         <div>

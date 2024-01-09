@@ -7,37 +7,45 @@ import { db } from '../firebaseClient';
 import { ref, onValue } from "firebase/database";
 
 export default function Home() {
-  const [cards, setCards] = useState()
+    const [cards, setCards] = useState({});
+    const [selectedCard, setSelectedCard] = useState(null);
 
-  useEffect(() => {
-    const cards = ref(db,'/cards' )
-    onValue(cards, (snapshot) => {
-      const data = snapshot.val();
-      setCards(data || {})
-      console.log(Object.keys(data))
-    });
+    useEffect(() => {
+        const cardsRef = ref(db, '/cards');
+        onValue(cardsRef, (snapshot) => {
+            const data = snapshot.val();
+            setCards(data || {});
+            console.log(Object.keys(data));
+        });
+    }, []);
 
-  }, []); 
+    const handleMarkerClick = (cardKey) => {
+        setSelectedCard(cardKey);
+    }
 
-  return (
-    <main className={styles.main}>
-      <div className={styles.map}>
-        <Map />
-      </div>
-      <div className={styles.feed}>
-        {cards && Object.keys(cards).map((key) => {
-            const card = cards[key];
-            return (
-              <Card 
-                key={key} 
-                imageUrl={card.image}
-                title={card.title}
-                price={card.price}
-                location={card.subtitle}
-              />  
-            )
-        })}
-      </div>
-    </main>
-  );
+    return (
+        <main className={styles.main}>
+            <div className={styles.map}>
+                <Map cards={cards} onMarkerClick={handleMarkerClick} />
+            </div>
+            <div className={styles.feed}>
+                {cards && Object.keys(cards)
+                    .filter(key => !selectedCard || key === selectedCard)
+                    .map((key) => {
+                        const card = cards[key];
+                        return (
+                            <Card 
+                                key={key} 
+                                imageUrl={card.image}
+                                title={card.title}
+                                price={card.price}
+                                location={card.subtitle}
+                            />
+                        )
+                    })
+                }
+            </div>
+        </main>
+    )
 }
+
