@@ -50,7 +50,26 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
     return (
         <div style={{ position: 'absolute', top: '10%', left: '10%', width: '80%', height: '80%', zIndex: 1000, backgroundColor: 'white' }}>
             <div ref={mapContainerRef} style={{ height: '90%' }}></div>
-            <button onClick={handleConfirm}>Confirm Location</button>
+            <button 
+                onClick={handleConfirm} 
+                style={{ 
+                    background: 'green', 
+                    color: 'white', 
+                    padding: '10px 20px', 
+                    border: 'none', 
+                    borderRadius: '5px', 
+                    cursor: 'pointer', 
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                    transition: 'background 0.3s ease',
+                    margin: '15px 15px'
+                }}
+                onMouseOver={(e) => e.target.style.background = 'darkgreen'}
+                onMouseOut={(e) => e.target.style.background = 'green'}
+            >
+                Confirm Location 📍
+            </button>
             {onClose && <button onClick={onClose}>Cancel</button>}
         </div>
     );
