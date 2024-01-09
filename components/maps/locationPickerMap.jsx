@@ -53,7 +53,7 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
             <button 
                 onClick={handleConfirm} 
                 style={{ 
-                    background: 'green', 
+                    background: 'darkgreen', 
                     color: 'white', 
                     padding: '10px 20px', 
                     border: 'none', 

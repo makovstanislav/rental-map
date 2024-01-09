@@ -3,7 +3,7 @@ import React from 'react';
 
 const RentalsNoSSR = dynamic(
   () => import('@/components/rentals'), 
-  { ssr: false } // Disable server-side rendering for this component
+  { ssr: false } 
 );
 
 export default function Home() {

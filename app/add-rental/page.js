@@ -3,7 +3,7 @@ import React from 'react';
 
 const AddRentalFormNoSSR = dynamic(
   () => import('@/components/add-rental-form'), 
-  { ssr: false } // Disable server-side rendering for this component
+  { ssr: false } 
 );
 
 export default function Home() {
