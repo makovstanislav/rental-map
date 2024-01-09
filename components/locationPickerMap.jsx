@@ -7,7 +7,7 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
-    
+
     useEffect(() => {
         if (mapContainerRef.current && !mapRef.current) {
             // Initialize the map
@@ -36,7 +36,6 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
                 mapRef.current = null;
             }
         };
-        
     }, []);
 
     const handleConfirm = () => {
@@ -57,3 +56,4 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
 };
 
 export default LocationPickerMap;
+
