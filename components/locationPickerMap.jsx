@@ -7,37 +7,35 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
-
+    
     useEffect(() => {
-        if(typeof window !== 'undefined') {
-            if (mapContainerRef.current && !mapRef.current) {
-                // Initialize the map
-                mapRef.current = L.map(mapContainerRef.current).setView([49.0384, 31.4513], 6);
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(mapRef.current);
-    
-                // Initialize the marker
-                markerRef.current = L.marker([49.0384, 31.4513], { draggable: true }).addTo(mapRef.current);
-                markerRef.current.on('dragend', function(event) {
-                    const position = event.target.getLatLng();
-                    onLocationSelect({ X: position.lat, Y: position.lng });
-                });
-    
-                mapRef.current.on('click', function(e) {
-                    markerRef.current.setLatLng(e.latlng);
-                });
-            }
-    
-            return () => {
-                // Cleanup the map
-                if (mapRef.current) {
-                    mapRef.current.remove();
-                    mapRef.current = null;
-                }
-            };
+        if (mapContainerRef.current && !mapRef.current) {
+            // Initialize the map
+            mapRef.current = L.map(mapContainerRef.current).setView([49.0384, 31.4513], 6);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(mapRef.current);
+
+            // Initialize the marker
+            markerRef.current = L.marker([49.0384, 31.4513], { draggable: true }).addTo(mapRef.current);
+            markerRef.current.on('dragend', function(event) {
+                const position = event.target.getLatLng();
+                onLocationSelect({ X: position.lat, Y: position.lng });
+            });
+
+            mapRef.current.on('click', function(e) {
+                markerRef.current.setLatLng(e.latlng);
+            });
         }
+
+        return () => {
+            // Cleanup the map
+            if (mapRef.current) {
+                mapRef.current.remove();
+                mapRef.current = null;
+            }
+        };
         
     }, []);
 

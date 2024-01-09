@@ -6,8 +6,8 @@ import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage
 import LocationPickerMap from '../../components/locationPickerMap'
 
 export default function AddRental() {
-    if(typeof window !== 'undefined') {
-        const [title, setTitle] = useState(null);
+    
+    const [title, setTitle] = useState(null);
     const [price, setPrice] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
@@ -87,6 +87,4 @@ export default function AddRental() {
             </form>
         </div>
     );
-    }
-    
 }
