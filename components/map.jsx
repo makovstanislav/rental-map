@@ -35,8 +35,6 @@ export default function Map({ cards, onMarkerClick }) {
                 });
             }
         
-        
-
         // Add markers for each card
         if (cards) {
             Object.keys(cards).forEach(key => {

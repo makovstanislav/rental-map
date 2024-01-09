@@ -13,7 +13,8 @@ const MapWithNoSSR = dynamic(() => import('../components/map'), {
 });
 
 export default function Home() {
-    const [cards, setCards] = useState({});
+    if(typeof window !== 'undefined') {
+        const [cards, setCards] = useState(null);
     const [selectedCard, setSelectedCard] = useState(null);
 
     useEffect(() => {
@@ -59,5 +60,6 @@ export default function Home() {
         </main>
       </>    
     )
+    }
 }
 
