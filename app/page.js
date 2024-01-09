@@ -1,10 +1,16 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Map from '../components/map';
 import Card from '@/components/card';
 import styles from './page.module.css';
 import { db } from '../firebaseClient';
 import { ref, onValue } from "firebase/database";
+
+const MapWithNoSSR = dynamic(() => import('../components/map'), {
+    ssr: false,
+    loading: () => <p>Loading map...</p>
+});
 
 export default function Home() {
     const [cards, setCards] = useState({});
@@ -31,7 +37,7 @@ export default function Home() {
         </header>
         <main className={styles.main}>
             <div className={styles.map}>
-                <Map cards={cards} onMarkerClick={handleMarkerClick} />
+                <MapWithNoSSR cards={cards} onMarkerClick={handleMarkerClick} />
             </div>
             <div className={styles.feed}>
                 {cards && Object.keys(cards)
