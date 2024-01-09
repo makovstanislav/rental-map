@@ -1,14 +1,17 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { db, storage } from '../../firebaseClient'; 
 import { ref as dbRef, push } from "firebase/database";
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import LocationPickerMap from '../../components/locationPickerMap'
 
 export default function AddRental() {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const [location, setLocation] = useState({ X: 50.0384, Y: 31.4513 });
+    const [showMap, setShowMap] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +25,7 @@ export default function AddRental() {
 
             // Submit all data to Firebase Realtime Database
             const newRentalRef = dbRef(db, 'cards/');
-            const newRental = { image: downloadURL, title, price };
+            const newRental = { image: downloadURL, title, price, location };
             await push(newRentalRef, newRental);
             alert('Rental object added successfully');
         } catch (error) {
@@ -35,6 +38,12 @@ export default function AddRental() {
         setPrice('');
         setImageFile(null);
         setUploading(false);
+    };
+
+    const handleLocationSelect = (selectedLocation) => {
+        setLocation(selectedLocation);
+        setShowMap(false);
+        console.log(selectedLocation)
     };
 
     return (
@@ -64,6 +73,13 @@ export default function AddRental() {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
+                <button type="submit" disabled={uploading}>
+                    {uploading ? 'Uploading...' : 'Submit'}
+                </button>
+                <div>
+                    <button type="button" onClick={() => setShowMap(true)}>Find on the Map</button>
+                </div>
+                {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />}
                 <button type="submit" disabled={uploading}>
                     {uploading ? 'Uploading...' : 'Submit'}
                 </button>
