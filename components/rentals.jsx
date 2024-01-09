@@ -11,14 +11,17 @@ export default function Rentals() {
 
     const [cards, setCards] = useState(null);
     const [selectedCard, setSelectedCard] = useState(null);
+    const [visibleCards, setVisibleCards] = useState(null)
 
     useEffect(() => {
         const cardsRef = ref(db, '/cards');
         onValue(cardsRef, (snapshot) => {
             const data = snapshot.val();
             setCards(data || {});
+            setVisibleCards(data || {})
             console.log(Object.keys(data));
         });
+        
     }, []);
 
     const handleMarkerClick = (cardKey) => {
@@ -35,10 +38,14 @@ export default function Rentals() {
             </header>
             <main className={styles.main}>
                 <div className={styles.map}>
-                    <Map cards={cards} onMarkerClick={handleMarkerClick} />
+                    <Map 
+                        cards={cards} 
+                        onMarkerClick={handleMarkerClick} 
+                        setVisibleCards={setVisibleCards}
+                    />
                 </div>
                 <div className={styles.feed}>
-                    {cards && Object.keys(cards)
+                    {cards && Object.keys(visibleCards)
                         .filter(key => !selectedCard || key === selectedCard)
                         .map((key) => {
                             const card = cards[key];
@@ -48,7 +55,7 @@ export default function Rentals() {
                                     imageUrl={card.image}
                                     title={card.title}
                                     price={card.price}
-                                    location={card.subtitle}
+                                    subtitle={card.subtitle}
                                 />
                             )
                         })

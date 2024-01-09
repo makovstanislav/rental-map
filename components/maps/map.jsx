@@ -1,9 +1,10 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-export default function Map({ cards, onMarkerClick }) {
+export default function Map({ cards, onMarkerClick, setVisibleCards }) {
+
     useEffect(() => {
         // Initialize the map
         if (typeof window !== 'undefined') {
@@ -13,7 +14,9 @@ export default function Map({ cards, onMarkerClick }) {
                     maxZoom: 19,
                     attribution: '© OpenStreetMap contributors'
                 }).addTo(window.myMap)
-    
+                
+                console.log(window.myMap.getBounds())
+
                 // Default icon
                 var defaultIcon = L.icon({
                     iconUrl: 'circle.png',
@@ -43,7 +46,7 @@ export default function Map({ cards, onMarkerClick }) {
                     const lng = location.Y;
     
                     var marker = L.marker([lat, lng], { icon: defaultIcon }).addTo(window.myMap);
-    
+                    
                     marker.on('click', function() {
                         onMarkerClick(key);
                         marker.setIcon(activeIcon);
@@ -56,15 +59,42 @@ export default function Map({ cards, onMarkerClick }) {
                     });
                 });
             }
-    
+
+            // Event listener for map move end
+            window.myMap.on('moveend', () => {
+                if (cards) {
+                    const visibleCards = Object.keys(cards).filter(key => {
+                        const cardLocation = cards[key].location;
+                        const cardLatLng = L.latLng(cardLocation.X, cardLocation.Y);
+                        return window.myMap.getBounds().contains(cardLatLng);
+                    });
+
+                    console.log('Visible cards:', visibleCards);
+
+                    function filterCardsByVisibility(cards, visibleCardsIds) {
+                        const filteredCards = {};
+                        visibleCardsIds.forEach(id => {
+                            if (cards[id]) {
+                                filteredCards[id] = cards[id];
+                            }
+                        });
+                        return filteredCards;
+                    }
+
+                    setVisibleCards(filterCardsByVisibility(cards,visibleCards))
+                }
+            });
+
             // Cleanup function
             return () => {
                 if (window.myMap) {
+                    window.myMap.off('moveend');
                     window.myMap.remove();
                     window.myMap = undefined;
                 }
             }
         }
+
     }, [cards])
 
     return (
