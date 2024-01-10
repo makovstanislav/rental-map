@@ -59,7 +59,6 @@ export default function AddRentalForm() {
     const handleLocationSelect = (selectedLocation) => {
         setLocation(selectedLocation);
         setShowMap(false);
-        setLocationName(`Lat: ${selectedLocation.X}, Lng: ${selectedLocation.Y}`);
     };
 
     return (
@@ -112,7 +111,11 @@ export default function AddRentalForm() {
                     {uploading ? 'Uploading...' : 'Submit'}
                 </button>
                 
-                {showMap && <LocationPickerMap onLocationSelect={handleLocationSelect} />}
+                {showMap && <LocationPickerMap 
+                    onLocationSelect={handleLocationSelect} 
+                    setLocationName={setLocationName} 
+                    onClose={() => setShowMap(false)} 
+                />}
             </form>
         </div>
     );

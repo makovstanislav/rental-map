@@ -3,11 +3,23 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const LocationPickerMap = ({ onLocationSelect, onClose }) => {
+const LocationPickerMap = ({ onLocationSelect, onClose, setLocationName }) => {
     const mapContainerRef = useRef(null);
-    const mapRef = useRef(null);
+    const mapRef = useRef(null)
     const markerRef = useRef(null);
-    
+
+    // Fetch address data
+    const fetchAddress = async (lat, lng) => {
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+            const data = await response.json();
+            const address = `${data.address.city || data.address.town || data.address.village}, ${data.address.country}`;
+            console.log(`Address: ${address}`);
+            setLocationName(address); // Set the location name
+        } catch (error) {
+            console.error('Error fetching address:', error);
+        }
+    }
 
     useEffect(() => {
         if (mapContainerRef.current && !mapRef.current) {
@@ -32,12 +44,23 @@ const LocationPickerMap = ({ onLocationSelect, onClose }) => {
             markerRef.current.on('dragend', function(event) {
                 const position = event.target.getLatLng();
                 onLocationSelect({ X: position.lat, Y: position.lng });
+                fetchAddress(position.lat, position.lng); // Fetch address data
             });
 
             mapRef.current.on('click', function(e) {
                 markerRef.current.setLatLng(e.latlng);
+                fetchAddress(e.latlng.lat, e.latlng.lng); // Fetch address data
             });
         }
+
+        const handleConfirm = () => {
+            if (markerRef.current) {
+                const { lat, lng } = markerRef.current.getLatLng();
+                onLocationSelect({ X: lat, Y: lng });
+                fetchAddress(lat, lng); // Fetch address data
+                if (onClose) onClose();
+            }
+        };
 
         return () => {
             // Cleanup the map

@@ -55,7 +55,7 @@ export default function Rentals() {
                                     imageUrl={card.image}
                                     title={card.title}
                                     price={card.price}
-                                    subtitle={card.subtitle}
+                                    subtitle={card.location.full}
                                 />
                             )
                         })
