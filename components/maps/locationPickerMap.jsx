@@ -13,7 +13,22 @@ const LocationPickerMap = ({ onLocationSelect, onClose, setLocationName }) => {
         try {
             const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
             const data = await response.json();
-            const address = `${data.address.city || data.address.town || data.address.village}, ${data.address.country}`;
+            const addressParts = [];
+    
+            // Add city if available
+            if (data.address.city || data.address.town || data.address.village) {
+                addressParts.push(data.address.city || data.address.town || data.address.village);
+            }
+    
+            // Add region (canton or province) if available
+            if (data.address.state || data.address.county) {
+                addressParts.push(data.address.state || data.address.county);
+            }
+    
+            // Always add country
+            addressParts.push(data.address.country);
+    
+            const address = addressParts.join(', ');
             console.log(`Address: ${address}`);
             setLocationName(address); // Set the location name
         } catch (error) {
