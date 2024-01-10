@@ -3,7 +3,7 @@ import { getDatabase } from "firebase/database"
 import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA8_j36jz70E361_4EbtMgTIXaEnYSpTmk",
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: "rental-map-3a947.firebaseapp.com",
     databaseURL: "https://rental-map-3a947-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "rental-map-3a947",
